@@ -1,0 +1,52 @@
+import { Clock, Gift, Users } from "lucide-react";
+
+const ValueProposition = () => {
+  const features = [
+    {
+      icon: Clock,
+      title: "✨ Giải Đáp Tức Thì 24/7",
+      description: "Trợ lý ảo luôn sẵn sàng trả lời các câu hỏi thường gặp về nội dung video, thiết bị, hay thông tin cá nhân của mình.",
+      color: "text-pink-500 bg-pink-100"
+    },
+    {
+      icon: Gift,
+      title: "🎁 Nhận Quà Tặng Độc Quyền",
+      description: "Trở thành người đầu tiên nhận tài liệu, checklist, hoặc thông báo đặc biệt mà mình chỉ chia sẻ tại đây.",
+      color: "text-orange-500 bg-orange-100"
+    },
+    {
+      icon: Users,
+      title: "🤝 Kết Nối Gần Hơn",
+      description: "Những góp ý hay câu hỏi phức tạp sẽ được chuyển thẳng tới team mình và được phản hồi sớm nhất.",
+      color: "text-teal-500 bg-teal-100"
+    }
+  ];
+
+  return (
+    <section className="py-16 md:py-20 bg-card">
+      <div className="max-w-5xl mx-auto px-6">
+        <h2 className="text-3xl font-bold text-center mb-12 font-primary text-foreground">
+          Bạn nhận được gì khi ở đây?
+        </h2>
+        
+        <div className="grid md:grid-cols-3 gap-10 text-center">
+          {features.map((feature, index) => (
+            <div key={index} className="p-6 rounded-lg">
+              <div className={`flex items-center justify-center h-16 w-16 rounded-full ${feature.color} mx-auto mb-4`}>
+                <feature.icon className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 font-primary text-foreground">
+                {feature.title}
+              </h3>
+              <p className="text-muted-foreground">
+                {feature.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ValueProposition;
