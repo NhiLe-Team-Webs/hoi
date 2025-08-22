@@ -2,25 +2,41 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { sendEmailViaEmailJS } from "@/lib/emailjs";
 
 const GiftForm = () => {
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // TODO: Integrate with email marketing service
-    console.log('Gift Form Data:', formData);
-    
-    toast({
-      title: "Đăng ký thành công! 🎉",
-      description: "Món quà đang trên đường đến email của bạn. Hãy kiểm tra hộp thư nhé!",
-    });
-    
-    setIsSubmitted(true);
-  };
+      // ✅ Bắt đầu loading (tùy chọn)
+      setIsLoading(true);
+
+      try {
+        // ✅ Gọi hàm gửi email qua EmailJS
+        await sendEmailViaEmailJS(formData.email, formData.name, "https://your-gift-link-here.com/ebook");
+
+        // ✅ Thông báo thành công
+        toast({
+          title: "🎉 Đã gửi quà thành công!",
+          description: `Cảm ơn ${formData.name}! Hãy kiểm tra email để nhận quà nhé.`,
+        });
+
+        setIsSubmitted(true);
+      } catch (error) {
+        // ✅ Xử lý lỗi (nếu có)
+        toast({
+          title: "❌ Lỗi gửi quà",
+          description: "Có lỗi xảy ra. Vui lòng thử lại sau.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -79,12 +95,23 @@ const GiftForm = () => {
               />
             </div>
             <Button
-              type="submit"
-              variant="gradient"
-              size="lg"
-              className="w-full md:w-auto text-lg py-3 px-8 rounded-full"
-            >
-              💌 Gửi quà cho tôi ngay!
+            type="submit"
+            variant="gradient"
+            size="lg"
+            className="w-full md:w-auto text-lg py-3 px-8 rounded-full"
+            disabled={isLoading} // ✅ Tắt khi đang gửi
+          >
+            {isLoading ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Đang gửi...
+              </>
+            ) : (
+              "💌 Gửi quà cho tôi ngay!"
+            )}
             </Button>
           </form>
         </div>

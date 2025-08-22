@@ -81,7 +81,6 @@ const LivestreamForm = () => {
     <section className="py-16 md:py-20 bg-secondary">
       <div className="max-w-4xl mx-auto px-6">
         <div className="bg-card p-8 md:p-12 rounded-2xl shadow-card text-center space-y-6">
-          {/* Thông báo thành công */}
           <div>
             <h2 className="text-3xl font-bold mb-4 font-primary text-foreground">
               Đã gửi câu hỏi thành công! ✅
@@ -91,10 +90,9 @@ const LivestreamForm = () => {
             </p>
           </div>
 
-          {/* Nút Gửi thêm câu hỏi - Căn giữa, gần box, màu nổi */}
           <div className="flex justify-center">
             <Button
-              variant="gradient" // ✅ Dùng gradient như nút chính
+              variant="gradient" 
               size="lg"
               onClick={handleReset}
               className="text-lg px-8 font-medium"
