@@ -19,7 +19,16 @@ const LivestreamForm = () => {
   const [consentError, setConsentError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);  
   const { toast } = useToast();
-
+  const handleReset = () => {
+  setIsSubmitted(false);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      question: "",
+      consent: false,
+    });
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -68,10 +77,12 @@ const LivestreamForm = () => {
   };
 
   if (isSubmitted) {
-    return (
-      <section className="py-16 md:py-20 bg-secondary">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="bg-card p-8 md:p-12 rounded-2xl shadow-card text-center">
+  return (
+    <section className="py-16 md:py-20 bg-secondary">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="bg-card p-8 md:p-12 rounded-2xl shadow-card text-center space-y-6">
+          {/* Thông báo thành công */}
+          <div>
             <h2 className="text-3xl font-bold mb-4 font-primary text-foreground">
               Đã gửi câu hỏi thành công! ✅
             </h2>
@@ -79,10 +90,23 @@ const LivestreamForm = () => {
               Cảm ơn bạn rất nhiều! Nhi sẽ xem qua và chọn những câu hỏi hay nhất cho buổi livestream sắp tới. Hẹn gặp lại bạn nhé!
             </p>
           </div>
+
+          {/* Nút Gửi thêm câu hỏi - Căn giữa, gần box, màu nổi */}
+          <div className="flex justify-center">
+            <Button
+              variant="gradient" // ✅ Dùng gradient như nút chính
+              size="lg"
+              onClick={handleReset}
+              className="text-lg px-8 font-medium"
+            >
+              Gửi thêm câu hỏi
+            </Button>
+          </div>
         </div>
-      </section>
-    );
-  }
+      </div>
+    </section>
+  );
+}
 
   return (
     <section className="py-16 md:py-20 bg-secondary">
