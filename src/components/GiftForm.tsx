@@ -46,21 +46,40 @@ const GiftForm = () => {
   };
 
   if (isSubmitted) {
-    return (
-      <section className="py-16 md:py-20 bg-gradient-soft">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="bg-card p-8 md:p-12 rounded-2xl shadow-card text-center">
-            <h2 className="text-3xl font-bold mb-4 font-primary text-foreground">
-              Cảm ơn bạn đã đăng ký! 🎉
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Món quà đang trên đường đến với email của bạn. Hãy kiểm tra hộp thư đến (và cả mục quảng cáo/spam) nhé!
-            </p>
+  return (
+    <section className="py-16 md:py-20 bg-gradient-soft">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="bg-card p-8 md:p-12 rounded-2xl shadow-card text-center">
+          <h2 className="text-3xl font-bold mb-4 font-primary text-foreground">
+            Cảm ơn bạn đã đăng ký! 🎉
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Món quà đang trên đường đến với email của bạn. Hãy kiểm tra hộp thư đến (và cả mục quảng cáo/spam) nhé!
+          </p>
+
+          {/* Các nút hành động */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            {/* Nút Mở email */}
+            <Button
+              asChild // ← Dùng asChild để Button bao bọc Link/Anchor
+              variant="gradient"
+              size="lg"
+              className="px-6"
+            >
+              <a
+                href="https://mail.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                📧 Mở Gmail
+              </a>
+            </Button>
           </div>
         </div>
-      </section>
-    );
-  }
+      </div>
+    </section>
+  );
+}
 
   return (
     <section className="py-16 md:py-20 bg-gradient-soft">
