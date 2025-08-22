@@ -6,6 +6,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { sendToTelegram } from "@/lib/telegram";
+import { sendToGoogleSheet } from '@/lib/google-sheet';
+
 
 const LivestreamForm = () => {
   const [formData, setFormData] = useState({
@@ -43,6 +45,7 @@ const LivestreamForm = () => {
     try {
       // ✅ Gửi dữ liệu đến Telegram
       await sendToTelegram(formData);
+      await sendToGoogleSheet(formData);
 
       toast({
         title: "Đã gửi câu hỏi thành công! ✅",
@@ -57,7 +60,7 @@ const LivestreamForm = () => {
         variant: "destructive",
       });
     } finally {
-      setIsLoading(false); // ✅ Dừng loading dù thành công hay lỗi
+      setIsLoading(false); 
     }
   };
 
